@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<title>Home Page</title>
+	<meta charset="UTF-8">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var socket = io.connect();
+
+			var name = prompt('What is your name?');
+
+			socket.emit('new_user_entered', {new_user_name: name});
+
+			socket.on('new_user_name', function(result) {
+				$('input[name="name"]').val(result.name);
+			})
+
+			$('form').submit(function() {
+				var message = $('form').serialize();
+				socket.emit('new_message', {new_message: message});
+				return false;
+			})
+
+			socket.on('all_messages', function(results) {
+				var str = '';
+				for (var a = 0; a < results.all_messages.length; a++) {
+					str += '<p><span class="name">';
+					str += results.all_messages[a].name;
+					str += '</span>';
+					str += results.all_messages[a].content;
+					str += '</p>';
+				}
+				$('.message').html(str);				
+			})
+
+		})
+	</script>
+</head>
+<body>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2'>
+				<h3>Conversation Board</h3>
+				<div class='message'>
+				</div>
+				<form>
+					<input type='hidden' name='name'>
+					<textarea placeholder='Enter your message here' name='content'></textarea>
+					<input type='submit' class='btn btn-primary'>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+* {
+	/*outline: 1px solid;*/
+}
+
+.container {
+	margin-top: 3em;
+}
+
+	h3 {
+		text-decoration: underline;
+	}
+
+	.message {
+		width: 100%;
+		height: 20em;
+		margin-top: 2em;
+		margin-bottom: 2em;
+		overflow: scroll;
+		border: 1px solid;
+	}
+
+	span.name {
+		display: inline-block;
+		width: 5em;
+	}
+
+	textarea {
+		width: 100%;
+		height: 5em;
+		margin-bottom: 2em;
+	}

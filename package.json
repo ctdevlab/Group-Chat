@@ -1,0 +1,9 @@
+{
+  "name": "group_chat",
+  "description": "a coding dojo project",
+  "dependencies": {
+    "ejs": "^2.3.2",
+    "express": "^4.13.1",
+    "socket.io": "^1.3.5"
+  }
+}
